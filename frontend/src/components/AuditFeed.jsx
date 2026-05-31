@@ -60,7 +60,7 @@ const INITIAL_AUDITS = [
 export default function AuditFeed() {
   const [audits, setAudits] = useState(INITIAL_AUDITS);
   const [isLive, setIsLive] = useState(true);
-  const feedEndRef = useRef(null);
+  const terminalRef = useRef(null);
 
   // Generate real-time random query access audit
   useEffect(() => {
@@ -97,12 +97,13 @@ export default function AuditFeed() {
     return () => clearInterval(interval);
   }, [isLive]);
 
-  // Scroll to bottom of terminal feed automatically
+  // Scroll to bottom of terminal feed container without moving window viewport
   useEffect(() => {
-    if (feedEndRef.current) {
-      feedEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
   }, [audits]);
+
 
   const getStatusColor = (status) => {
     if (status === 'AUTHORIZED') return 'text-cyber-purple font-semibold';
@@ -158,7 +159,7 @@ export default function AuditFeed() {
       </div>
 
       {/* Terminal Screen */}
-      <div className="flex-1 bg-black/90 p-3 rounded border border-cyber-purple/20 overflow-y-auto max-h-[300px] flex flex-col gap-2 scrollbar-thin">
+      <div ref={terminalRef} className="flex-1 bg-black/90 p-3 rounded border border-cyber-purple/20 overflow-y-auto max-h-[300px] flex flex-col gap-2 scrollbar-thin">
         {audits.length === 0 ? (
           <div className="text-cyber-text/30 text-xs text-center my-auto font-mono">
             TERMINAL STANDBY // WAITING FOR INCOMING DATA STREAM...
@@ -204,8 +205,8 @@ export default function AuditFeed() {
             );
           })
         )}
-        <div ref={feedEndRef} />
       </div>
+
     </div>
   );
 }
