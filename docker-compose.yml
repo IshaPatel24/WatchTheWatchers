@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      # Mount SQLite db and uploads folder to persist data across container restarts
+      - backend_data:/app/data
+    environment:
+      - DATABASE_URL=sqlite:///./data/watchers.db
+      - UPLOAD_DIR=./data/encrypted_uploads
+      - DEBUG=True
+    networks:
+      - watchers-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - watchers-net
+
+volumes:
+  backend_data:
+
+networks:
+  watchers-net:
+    driver: bridge

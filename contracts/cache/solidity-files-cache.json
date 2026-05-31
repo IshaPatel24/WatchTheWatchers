@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/yogeshmodi/Desktop/WatchTheWatchers/contracts/contracts/WatchTheWatchers.sol": {
+      "lastModificationDate": 1780224379639,
+      "contentHash": "9291615671e3341a9eac1846aaf2269f",
+      "sourceName": "contracts/WatchTheWatchers.sol",
+      "solcConfig": {
+        "version": "0.8.20",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.20"
+      ],
+      "artifacts": [
+        "WatchTheWatchers"
+      ]
+    }
+  }
+}
